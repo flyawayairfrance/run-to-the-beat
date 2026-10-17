@@ -232,7 +232,7 @@ $("#f").onsubmit=e=>{
  if(!r.sec||!r.km){alert("Check distance and time.");return;}
  const all=load();all.push(r);save(all);
  $("#saved").textContent="Saved ✓";setTimeout(()=>$("#saved").textContent="",2000);
- e.target.km.value="";e.target.time.value="";e.target.hr.value="";e.target.cad.value="";e.target.notes.value="";e.target.temp.value="";
+ ["km","time","hr","cad","notes","temp"].forEach(n=>e.target.elements[n].value="");
  renderResults();
 };
 function stat(rs){return{n:rs.length,pace:avg(rs.map(r=>r.sec/r.km)),rpe:avg(rs.map(r=>r.rpe)),feel:avg(rs.map(r=>r.feel)),hr:avg(rs.filter(r=>r.hr).map(r=>r.hr))}}
