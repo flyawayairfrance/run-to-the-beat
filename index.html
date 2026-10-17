@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Run to the Beat · Victor's music & running lab</title>
+<meta name="description" content="The real science of running with music, a tempo guide for each type of run, and a personal tracker to test it on yourself.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>">
+<style>
+:root{--bg:#0f1226;--card:#171b36;--ink:#e8ebff;--mut:#9aa3c7;--a:#ff6b4a;--b:#f9a826;--c:#5ad1a8;--d:#7aa2ff;--line:#2a3060}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Inter,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+a{color:var(--b)}
+header.hero{background:linear-gradient(120deg,#1e2a5a 0%,#3b2a6b 40%,#e8505b 75%,#f9a826 100%);padding:48px 20px 64px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.hero h1{font-size:clamp(34px,6vw,58px);line-height:1;margin:6px 0 10px;letter-spacing:-1px}
+.hero p{max-width:640px;margin:0;font-size:18px;opacity:.95}
+.tag{letter-spacing:3px;font-weight:700;font-size:12px;color:#ffe3a3;text-transform:uppercase}
+nav{position:sticky;top:0;z-index:5;background:rgba(15,18,38,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding:10px 20px}
+nav a{color:var(--ink);text-decoration:none;padding:7px 14px;border-radius:999px;background:var(--card);white-space:nowrap;font-size:14px}
+nav a:hover{background:var(--line)}
+section{padding:40px 0 10px}
+h2{font-size:28px;margin:0 0 6px}
+h2 small{display:block;font-size:14px;color:var(--mut);font-weight:400;margin-top:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-top:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:6px 0;color:#cfd4f2;font-size:15px}
+.big{font-size:30px;font-weight:800;color:var(--c)}
+.src{font-size:12.5px;color:var(--mut)}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;background:var(--line);color:var(--ink);margin:2px 4px 2px 0}
+.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:6px 0 2px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--a),var(--b))}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--mut);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.5px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 10px}
+.tabs button{background:var(--card);border:1px solid var(--line);color:var(--ink);padding:9px 14px;border-radius:12px;cursor:pointer;font-size:14px}
+.tabs button.on{background:var(--a);border-color:var(--a);color:#fff}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.panel .row{display:flex;flex-wrap:wrap;gap:22px}
+.panel .row>div{flex:1;min-width:220px}
+label{display:block;font-size:13px;color:var(--mut);margin:10px 0 4px}
+input,select,textarea{width:100%;background:#0f1330;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;font-family:inherit}
+input[type=range]{padding:0}
+.btn{background:var(--a);border:0;color:#fff;padding:11px 18px;border-radius:12px;font-weight:700;cursor:pointer;font-size:15px}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink);font-weight:500}
+.btn.sm{padding:6px 10px;font-size:13px}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:4px 14px}
+.toggle{display:flex;gap:8px}
+.toggle label{margin:0;flex:1;text-align:center;padding:10px;border:1px solid var(--line);border-radius:10px;cursor:pointer;color:var(--ink);font-size:15px}
+.toggle input{display:none}
+.toggle input:checked+span{color:#fff}
+.toggle label:has(input:checked){background:var(--d);border-color:var(--d)}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cmp .card{text-align:center}
+.cmp .card .big{font-size:26px}
+.muted{color:var(--mut)}
+.warn{border-left:4px solid var(--a);background:#24142a}
+.song{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px dashed var(--line);font-size:14.5px}
+.song b{color:var(--b);white-space:nowrap}
+footer{padding:40px 0 60px;color:var(--mut);font-size:13px}
+.empty{padding:20px;text-align:center;color:var(--mut)}
+@media (max-width:600px){th:nth-child(5),td:nth-child(5),th:nth-child(7),td:nth-child(7){display:none}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="tag">Victor's running lab</div>
+<h1>Run to the Beat</h1>
+<p>What the research really says about running with music, which tempo fits each kind of run, and a tracker so you can test it on yourself instead of taking anyone's word for it.</p>
+</div></header>
+<nav><div class="wrap"><a href="#science">The science</a><a href="#tempo">Tempo guide</a><a href="#tracker">My tracker</a><a href="#results">My results</a><a href="#sources">Sources</a></div></nav>
+
+<main class="wrap">
+<section id="science">
+<h2>The science, in plain words<small>Only findings from peer-reviewed studies, with the source under each one.</small></h2>
+<div class="grid">
+ <div class="card"><h3>Music makes running feel better</h3><div class="big">g = 0.48</div><div class="bar"><i style="width:96%"></i></div>
+ <p>The biggest and most reliable effect. Across 139 studies and 3,599 people, music clearly improved how good exercise felt (affective valence).</p><div class="src">Terry et al. 2020, meta-analysis, Psychological Bulletin</div></div>
+ <div class="card"><h3>A real but modest performance boost</h3><div class="big">g = 0.31</div><div class="bar"><i style="width:62%"></i></div>
+ <p>Music was linked to better physical performance, and the effect was bigger with fast music than with slow-to-medium music.</p><div class="src">Terry et al. 2020</div></div>
+ <div class="card"><h3>Effort feels a bit lighter</h3><div class="big">g = 0.22</div><div class="bar"><i style="width:44%"></i></div>
+ <p>Perceived exertion went down a little, and oxygen use was slightly more efficient (g = 0.15). Heart rate did not change significantly.</p><div class="src">Terry et al. 2020</div></div>
+ <div class="card"><h3>Running on the beat helps most</h3><div class="big">+18–20%</div>
+ <p>Elite triathletes running in time with music lasted 18.1% (motivational music) and 19.7% (neutral music) longer to exhaustion than with no music, and ran more economically.</p><div class="src">Terry et al. 2012, J Sci Med Sport</div></div>
+ <div class="card"><h3>It's the beat more than the song</h3>
+ <p>A plain metronome matched to cadence extended time to exhaustion as much as motivational music did. A strong, steady beat helps you hold pace; music you love adds the mood lift.</p><div class="src">Bood et al. 2013, PLoS One · Terry et al. 2012</div></div>
+ <div class="card"><h3>Tempo can quietly shift your cadence</h3>
+ <p>Speeding music up or slowing it down by 1–3%, too little to notice, pulled runners' step rate with it. Runners synced much more when they actually tried to match the beat.</p><div class="src">Van Dyck et al. 2015, Sports Med Open · Van Dyck et al. 2021, Ann NY Acad Sci</div></div>
+ <div class="card"><h3>Faster tempo as you push harder</h3>
+ <p>As exercise got harder, people preferred fast music (about 135–140 BPM) over medium. Slow music (95–100 BPM) wasn't preferred at any intensity.</p><div class="src">Karageorghis et al. 2011, Res Q Exerc Sport</div></div>
+ <div class="card"><h3>Its limit: the very hard stuff</h3>
+ <p>Music works best in self-paced, steady efforts. Above the anaerobic threshold (all-out intervals), it no longer seems to make the effort feel easier, though it can still lift mood and arousal.</p><div class="src">Karageorghis & Priest 2012, review Parts I and II</div></div>
+ <div class="card warn"><h3>Keep one ear open</h3>
+ <p>A US case series found 116 reports of pedestrians injured or killed while wearing headphones, mostly in cities and often near trains or traffic. In Bangkok traffic, use one earbud or open-ear headphones and keep the volume down.</p><div class="src">Lichenstein et al. 2012, Injury Prevention</div></div>
+</div>
+</section>
+
+<section id="tempo">
+<h2>Tempo guide by type of run<small>There are two ways to use tempo: sync your steps to the beat, or just play it in the background. Pick a run type.</small></h2>
+<div class="card" style="margin-top:14px">
+ <h3>First, find your cadence (takes 30 seconds)</h3>
+ <p>Run at the effort you want, count your steps for 30 seconds, and multiply by 2. That's your steps per minute. A song works for syncing when its BPM equals your cadence, or half of it (one step on every beat versus one step per half-beat).</p>
+ <div class="formgrid" style="max-width:520px">
+  <div><label for="cad">My cadence for this run (steps/min)</label><input id="cad" type="number" min="120" max="210" value="165"></div>
+  <div><label for="nudge">Gentle nudge</label><select id="nudge"><option value="0">Match my cadence</option><option value="2">+2% (a bit quicker steps)</option><option value="3">+3% (max unnoticed nudge)</option></select></div>
+ </div>
+ <p class="muted" id="cadOut"></p>
+</div>
+<div class="tabs" id="tabs"></div>
+<div class="panel" id="panel"></div>
+<p class="src" style="margin-top:10px">Song BPMs from songbpm.com, checked 16 Oct 2026. Rock and pop only. "85 → 170" means you take one step per half-beat. The background bands come from Karageorghis et al. 2011; the per-run advice is my synthesis of the studies above, not a lab-tested prescription for each run type.</p>
+</section>
+
+<section id="tracker">
+<h2>My tracker<small>Log runs with and without music. Everything stays on this device (no account, nothing sent anywhere).</small></h2>
+<div class="panel">
+ <form id="f">
+ <div class="formgrid">
+  <div><label>Date</label><input name="date" type="date" required></div>
+  <div><label>Run type</label><select name="type" id="ftype"></select></div>
+  <div><label>Distance (km)</label><input name="km" type="number" step="0.01" min="0.1" required placeholder="5"></div>
+  <div><label>Time (mm:ss or h:mm:ss)</label><input name="time" required placeholder="28:30" pattern="^\d{1,2}(:\d{1,2}){1,2}$"></div>
+  <div><label>Avg heart rate (optional)</label><input name="hr" type="number" min="60" max="230" placeholder="158"></div>
+  <div><label>Cadence (optional)</label><input name="cad" type="number" min="100" max="230" placeholder="166"></div>
+ </div>
+ <label>Music?</label>
+ <div class="toggle"><label><input type="radio" name="music" value="yes" checked><span>🎧 With music</span></label><label><input type="radio" name="music" value="no"><span>🤫 No music</span></label></div>
+ <div class="formgrid">
+  <div><label>How hard did it feel? <b id="rpeV">5</b>/10</label><input name="rpe" id="rpe" type="range" min="1" max="10" value="5"></div>
+  <div><label>How good did it feel? <b id="feelV">+1</b> (−5 awful to +5 great)</label><input name="feel" id="feel" type="range" min="-5" max="5" value="1"></div>
+  <div><label>Temp °C (optional, heat matters a lot)</label><input name="temp" type="number" step="0.5" placeholder="30"></div>
+ </div>
+ <label>Notes (route, playlist, how you slept...)</label><input name="notes" placeholder="Lumphini loop, rock playlist at 168">
+ <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn" type="submit">Save run</button><span class="muted" id="saved"></span></div>
+ </form>
+</div>
+<div class="card" style="margin-top:14px"><h3>How to make it a fair test</h3>
+<p>Alternate music and no-music runs on the same route and type of run, at a similar time of day, so heat and fatigue don't fake a result. Aim for at least 4 of each per run type before trusting the comparison. Judge mainly by how hard it felt (RPE) and how good it felt, since that's where the research shows the clearest effect; pace will move less.</p></div>
+</section>
+
+<section id="results">
+<h2>My results<small>With music versus without, per run type.</small></h2>
+<div class="tabs" id="rtabs"></div>
+<div id="cmp"></div>
+<div class="card" style="margin-top:14px;overflow-x:auto">
+ <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="margin:0">All runs</h3>
+ <div style="display:flex;gap:6px"><button class="btn ghost sm" id="exp">Export CSV</button><label class="btn ghost sm" style="margin:0;color:var(--ink)">Import CSV<input type="file" id="imp" accept=".csv" style="display:none"></label></div></div>
+ <table><thead><tr><th>Date</th><th>Type</th><th>Music</th><th>km</th><th>Time</th><th>Pace</th><th>HR</th><th>RPE</th><th>Feel</th><th></th></tr></thead><tbody id="tb"></tbody></table>
+</div>
+</section>
+
+<section id="sources">
+<h2>Sources</h2>
+<div class="card src" style="font-size:13.5px;line-height:1.7">
+Terry PC, Karageorghis CI, Curran ML, Martin OV, Parsons-Smith RL (2020). Effects of music in exercise and sport: a meta-analytic review. <i>Psychological Bulletin</i> 146(2):91–117. <a href="https://doi.org/10.1037/bul0000216">doi.org/10.1037/bul0000216</a><br>
+Terry PC, Karageorghis CI, Saha AM, D'Auria S (2012). Effects of synchronous music on treadmill running among elite triathletes. <i>J Sci Med Sport</i> 15(1):52–57. <a href="https://doi.org/10.1016/j.jsams.2011.06.003">doi.org/10.1016/j.jsams.2011.06.003</a><br>
+Bood RJ, Nijssen M, van der Kamp J, Roerdink M (2013). The power of auditory-motor synchronization in sports. <i>PLoS One</i> 8(8):e70758. <a href="https://doi.org/10.1371/journal.pone.0070758">doi.org/10.1371/journal.pone.0070758</a><br>
+Van Dyck E et al. (2015). Spontaneous entrainment of running cadence to music tempo. <i>Sports Med Open</i> 1:15. <a href="https://doi.org/10.1186/s40798-015-0025-9">doi.org/10.1186/s40798-015-0025-9</a><br>
+Van Dyck E, Buhmann J, Lorenzoni V (2021). Instructed versus spontaneous entrainment of running cadence to music tempo. <i>Ann NY Acad Sci</i> 1489(1):91–102. <a href="https://doi.org/10.1111/nyas.14528">doi.org/10.1111/nyas.14528</a><br>
+Karageorghis CI et al. (2011). Revisiting the relationship between exercise heart rate and music tempo preference. <i>Res Q Exerc Sport</i> 82(2):274–284. <a href="https://doi.org/10.1080/02701367.2011.10599755">doi.org/10.1080/02701367.2011.10599755</a><br>
+Karageorghis CI, Priest DL (2012). Music in the exercise domain: a review and synthesis, Parts I and II. <i>Int Rev Sport Exerc Psychol</i> 5(1):44–84. <a href="https://doi.org/10.1080/1750984X.2011.631026">Part I</a> · <a href="https://doi.org/10.1080/1750984X.2011.631027">Part II</a><br>
+Simpson SD, Karageorghis CI (2006). The effects of synchronous music on 400-m sprint performance. <i>J Sports Sci</i> 24(10):1095–1102. <a href="https://doi.org/10.1080/02640410500432789">doi.org/10.1080/02640410500432789</a><br>
+Lichenstein R et al. (2012). Headphone use and pedestrian injury and death in the United States: 2004–2011. <i>Injury Prevention</i> 18(5):287–290. <a href="https://doi.org/10.1136/injuryprev-2011-040161">doi.org/10.1136/injuryprev-2011-040161</a><br>
+Song tempos: <a href="https://songbpm.com">songbpm.com</a>, checked 16 Oct 2026.
+</div>
+</section>
+</main>
+<footer class="wrap">Built for Victor · Not medical advice. In the heat, stop and get help if you feel confused, dizzy, nauseous or get chills.</footer>
+
+<script>
+const SONGS=[
+ ["The White Stripes","Seven Nation Army",124],["Avicii","Wake Me Up",124],["Walk the Moon","Shut Up and Dance",128],
+ ["The Killers","When You Were Young",130],["Franz Ferdinand","Take Me Out",104],["Survivor","Eye of the Tiger",109],
+ ["The Killers","Mr. Brightside",148],["Blink-182","All the Small Things",149],["The Rolling Stones","Paint It Black",159],
+ ["Taylor Swift","Shake It Off",160],["Jimmy Eat World","The Middle",162],["Imagine Dragons","Thunder",168],
+ ["Green Day","Basket Case",85],["Electric Light Orchestra","Mr. Blue Sky",89],["Paramore","Misery Business",173],
+ ["Foo Fighters","The Pretender",173],["Ramones","Blitzkrieg Bop",200]
+];
+const TYPES={
+ warmup:{n:"Warm-up",bg:[115,130],how:"Background",why:"You're easing in, so no need to sync. Medium-tempo music (around 115–130 BPM) lifts your mood and arousal before the real work without rushing you.",tip:"Ideal for the 10 minutes before a race or workout; pre-task music helps get you in the zone (Karageorghis & Priest 2012)."},
+ easy:{n:"Easy / recovery",bg:[115,130],how:"Sync or background",why:"Self-paced steady running is where music helps most. Either play medium-tempo songs in the background, or sync to songs at your easy cadence to stay relaxed and even.",tip:"Danger here is drifting too fast because the song is exciting. If your easy runs speed up with music, choose calmer songs or sync to cadence instead."},
+ long:{n:"Long run",bg:[120,140],how:"Sync",why:"Long, repetitive efforts are exactly what the triathlete and metronome studies tested: matching cadence to a steady beat kept runners going longer and more economically.",tip:"Build a playlist where every song sits within about 3% of your long-run cadence so the beat never pulls you off rhythm."},
+ tempo:{n:"Tempo / threshold",bg:[135,145],how:"Sync",why:"As effort rises, people prefer fast music (around 135–140 BPM) over medium. For a sustained hard pace, syncing to your tempo-run cadence also helps hold the pace steady.",tip:"Pick high-energy songs you love here; the motivational boost matters more as it gets hard."},
+ intervals:{n:"Intervals",bg:[140,160],how:"Background, for mood",why:"Above the anaerobic threshold, music stops making effort feel easier, but synchronous music still improved 400 m sprint times in one study and fast music lifts arousal.",tip:"Use your favourite fast songs for the reps and something calmer for the recoveries. Don't expect the music to make the reps hurt less."},
+ race:{n:"5K race",bg:[140,160],how:"Sync",why:"Syncing to a strong beat at race cadence gives you a pacing metronome, plus the mood lift. Save your favourite song for the last kilometre.",tip:"Check race rules, keep one ear open, and stay at a volume where you hear marshals and other runners."}
+};
+const $=s=>document.querySelector(s);
+let cur="race",rcur="all";
+function matches(target){
+ const out=[];
+ for(const [a,t,b] of SONGS){
+  for(const [m,lab] of [[1,""],[2," → "+(b*2)]]){const e=b*m; const d=Math.abs(e-target)/target*100; if(d<=3) out.push({a,t,b,lab,d});}
+ }
+ return out.sort((x,y)=>x.d-y.d);
+}
+function bgSongs([lo,hi]){return SONGS.filter(s=>s[2]>=lo&&s[2]<=hi);}
+function renderTempo(){
+ $("#tabs").innerHTML=Object.entries(TYPES).map(([k,v])=>`<button class="${k==cur?'on':''}" data-k="${k}">${v.n}</button>`).join("");
+ $("#tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=b.dataset.k;renderTempo();});
+ const c=+$("#cad").value||165, nudge=+$("#nudge").value, target=Math.round(c*(1+nudge/100));
+ $("#cadOut").textContent=`Target beat for syncing: ${target} BPM (or ${Math.round(target/2)} BPM, stepping on each half-beat). Songs within about 3% of it work, since a ~4% change is about where people start to notice.`;
+ const T=TYPES[cur], m=matches(target), bg=bgSongs(T.bg);
+ $("#panel").innerHTML=`<div class="row"><div>
+  <span class="pill">Best approach: ${T.how}</span><span class="pill">Background tempo: ${T.bg[0]}–${T.bg[1]} BPM</span>
+  <p>${T.why}</p><p class="muted">${T.tip}</p></div>
+  <div><h3 style="margin:0 0 6px;font-size:16px">Songs to sync at ${target} steps/min</h3>
+  ${m.length?m.map(s=>`<div class="song"><span>${s.a} – ${s.t}</span><b>${s.b}${s.lab}</b></div>`).join(""):`<p class="muted">No song in the list is within 3% of ${target}. Try a nudge, or search songbpm.com for ${target} or ${Math.round(target/2)} BPM rock and pop.</p>`}
+  <h3 style="margin:16px 0 6px;font-size:16px">Background picks (${T.bg[0]}–${T.bg[1]} BPM)</h3>
+  ${bg.length?bg.map(s=>`<div class="song"><span>${s[0]} – ${s[1]}</span><b>${s[2]}</b></div>`).join(""):'<p class="muted">None in the list for this band yet.</p>'}
+ </div></div>`;
+ const sel=$("#ftype"); if(!sel.options.length) sel.innerHTML=Object.entries(TYPES).filter(([k])=>k!="warmup").map(([k,v])=>`<option value="${k}">${v.n}</option>`).join("");
+}
+$("#cad").oninput=renderTempo;$("#nudge").onchange=renderTempo;
+
+// tracker
+const KEY="runToTheBeat.v1";
+const load=()=>{try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}};
+const save=r=>localStorage.setItem(KEY,JSON.stringify(r));
+const secs=t=>{const p=t.split(":").map(Number);return p.length==3?p[0]*3600+p[1]*60+p[2]:p[0]*60+p[1]};
+const fmt=s=>{s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return (h?h+":"+String(m).padStart(2,"0"):m)+":"+String(x).padStart(2,"0")};
+const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+$("#rpe").oninput=e=>$("#rpeV").textContent=e.target.value;
+$("#feel").oninput=e=>$("#feelV").textContent=(e.target.value>0?"+":"")+e.target.value;
+{const d=new Date();document.querySelector('[name=date]').value=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+$("#f").onsubmit=e=>{
+ e.preventDefault();const fd=new FormData(e.target),o=Object.fromEntries(fd);
+ const r={id:Date.now(),date:o.date,type:o.type,music:o.music,km:+o.km,sec:secs(o.time),hr:o.hr?+o.hr:null,cad:o.cad?+o.cad:null,rpe:+o.rpe,feel:+o.feel,temp:o.temp?+o.temp:null,notes:o.notes||""};
+ if(!r.sec||!r.km){alert("Check distance and time.");return;}
+ const all=load();all.push(r);save(all);
+ $("#saved").textContent="Saved ✓";setTimeout(()=>$("#saved").textContent="",2000);
+ e.target.km.value="";e.target.time.value="";e.target.hr.value="";e.target.cad.value="";e.target.notes.value="";e.target.temp.value="";
+ renderResults();
+};
+function stat(rs){return{n:rs.length,pace:avg(rs.map(r=>r.sec/r.km)),rpe:avg(rs.map(r=>r.rpe)),feel:avg(rs.map(r=>r.feel)),hr:avg(rs.filter(r=>r.hr).map(r=>r.hr))}}
+function renderResults(){
+ const all=load().sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id);
+ const types=["all",...Object.keys(TYPES).filter(k=>k!="warmup")];
+ $("#rtabs").innerHTML=types.map(k=>`<button class="${k==rcur?'on':''}" data-k="${k}">${k=="all"?"All runs":TYPES[k].n}</button>`).join("");
+ $("#rtabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{rcur=b.dataset.k;renderResults();});
+ const rs=all.filter(r=>rcur=="all"||r.type==rcur), w=stat(rs.filter(r=>r.music=="yes")), o=stat(rs.filter(r=>r.music=="no"));
+ const cell=(lab,a,b,f,better)=>{let note="";if(a!=null&&b!=null){const d=a-b;if(Math.abs(d)>1e-9){const good=better=="low"?d<0:d>0;note=`<div class="src" style="color:${good?'var(--c)':'var(--a)'}">${good?'better':'worse'} with music by ${f(Math.abs(d))}</div>`}}
+  return `<div class="card"><div class="src">${lab}</div><div class="cmp"><div><div class="src">🎧 With</div><div class="big">${a==null?'–':f(a)}</div></div><div><div class="src">🤫 Without</div><div class="big" style="color:var(--d)">${b==null?'–':f(b)}</div></div></div>${note}</div>`};
+ const enough=w.n>=4&&o.n>=4;
+ $("#cmp").innerHTML=`<p class="muted">${w.n} run${w.n==1?'':'s'} with music, ${o.n} without. ${enough?'Enough runs for a first read, keep going to firm it up.':'Get to at least 4 of each before trusting the difference.'}</p>
+ <div class="grid">${cell("Avg pace (min/km)",w.pace,o.pace,fmt,"low")}${cell("How hard it felt (RPE /10)",w.rpe,o.rpe,x=>x.toFixed(1),"low")}${cell("How good it felt (−5 to +5)",w.feel,o.feel,x=>x.toFixed(1),"high")}${cell("Avg heart rate",w.hr,o.hr,x=>Math.round(x)+"",null)}</div>`;
+ $("#tb").innerHTML=all.length?all.map(r=>`<tr><td>${r.date}</td><td>${TYPES[r.type]?.n||r.type}</td><td>${r.music=="yes"?"🎧":"🤫"}</td><td>${r.km}</td><td>${fmt(r.sec)}</td><td>${fmt(r.sec/r.km)}</td><td>${r.hr||"–"}</td><td>${r.rpe}</td><td>${r.feel>0?"+":""}${r.feel}</td><td><button class="btn ghost sm" data-del="${r.id}" title="${(r.notes||'').replace(/"/g,'&quot;')}">✕</button></td></tr>`).join(""):`<tr><td colspan="10" class="empty">No runs yet. Log your first one above.</td></tr>`;
+ $("#tb").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>{if(confirm("Delete this run?")){save(load().filter(r=>r.id!=b.dataset.del));renderResults();}});
+}
+const COLS=["date","type","music","km","sec","hr","cad","rpe","feel","temp","notes"];
+$("#exp").onclick=()=>{const rows=[COLS.join(","),...load().map(r=>COLS.map(c=>{const v=r[c]??"";return /[",\n]/.test(v)?'"'+String(v).replace(/"/g,'""')+'"':v}).join(","))];
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([rows.join("\n")],{type:"text/csv"}));a.download="run-to-the-beat.csv";a.click();};
+$("#imp").onchange=async e=>{const f=e.target.files[0];if(!f)return;const lines=(await f.text()).trim().split(/\r?\n/);const h=lines.shift().split(",");
+ const parse=l=>{const out=[];let cur="",q=false;for(let i=0;i<l.length;i++){const ch=l[i];if(q){if(ch=='"'&&l[i+1]=='"'){cur+='"';i++}else if(ch=='"')q=false;else cur+=ch}else if(ch=='"')q=true;else if(ch==","){out.push(cur);cur=""}else cur+=ch}out.push(cur);return out};
+ const all=load();let n=0;for(const l of lines){const v=parse(l),r={id:Date.now()+n};h.forEach((k,i)=>r[k]=v[i]);["km","sec","rpe","feel"].forEach(k=>r[k]=+r[k]);["hr","cad","temp"].forEach(k=>r[k]=r[k]?+r[k]:null);if(r.date&&r.km&&r.sec){all.push(r);n++}}
+ save(all);renderResults();alert(n+" runs imported.");e.target.value="";};
+renderTempo();renderResults();
+</script>
+</body>
+</html>
